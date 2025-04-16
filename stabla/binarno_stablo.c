@@ -53,6 +53,29 @@ void stampaj_inorder(struct cvor *p) {
     }
 }
 
+/* funkcija koja odredjuje broj cvorova u stablu */
+int broj(struct cvor *p) {
+    if (p == NULL) return 0;
+    if (p->levi == NULL && p->desni == NULL) return 1;
+    return 1 + broj(p->levi) + broj(p->desni);
+}
+
+/* funkcija koja menja mesta levim i desnim podstablima */
+void zameni(struct cvor *p) {
+    struct cvor *pom;
+
+    if (p != NULL) {
+        /* zamena mesta u cvoru */
+        pom = p->levi;
+        p->levi = p->desni;
+        p->desni = pom;
+
+        /* zameni mesto levom i desnom podstablu */
+        zameni(p->levi);
+        zameni(p->desni);
+    }
+}
+
 int main(void) {
     struct cvor *koren = NULL;
     int n, x;
@@ -66,5 +89,9 @@ int main(void) {
         koren = dodaj(koren, x);
     }
 
+    stampaj_inorder(koren);
+    printf("\nBroj cvorova u stablu: %d\n", broj(koren));
+
+    zameni(koren);
     stampaj_inorder(koren);
 }
