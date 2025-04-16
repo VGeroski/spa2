@@ -76,6 +76,26 @@ void zameni(struct cvor *p) {
     }
 }
 
+/* funkcija za trazenje cvora u binarnom stablu
+ * ukoliko cvor postoji, preko y vracamo roditelja cvora
+ */
+struct cvor *pronadji(struct cvor *p, int kljuc, struct cvor **y) {
+    if (p == NULL) return NULL;
+
+    struct cvor *pom = p;
+    *y = NULL;
+    while (pom != NULL) {
+        if (pom->podatak == kljuc) return pom;
+
+        *y = pom; /* pamtimo roditelja */
+        if (kljuc < pom->podatak) pom = pom->levi;
+        else pom = pom->desni;
+    }
+
+    /* ako izadjemo iz petlje, cvor ne postoji u stablu */
+    return NULL;
+}
+
 int main(void) {
     struct cvor *koren = NULL;
     int n, x;
@@ -94,4 +114,6 @@ int main(void) {
 
     zameni(koren);
     stampaj_inorder(koren);
+
+    zameni(koren);
 }
