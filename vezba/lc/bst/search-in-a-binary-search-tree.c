@@ -15,12 +15,12 @@ struct TreeNode {
     struct TreeNode *right;
 };
 
-void printTree(const struct TreeNode *root) {
+void printTreePreOrder(const struct TreeNode *root) {
     if (root == NULL) return;
 
     printf("%d ", root->val);
-    printTree(root->left);
-    printTree(root->right);
+    printTreePreOrder(root->left);
+    printTreePreOrder(root->right);
 }
 
 void print(const struct TreeNode *root) {
@@ -30,7 +30,7 @@ void print(const struct TreeNode *root) {
     }
 
     printf("[ ");
-    printTree(root);
+    printTreePreOrder(root);
     printf("]");
 }
 
@@ -51,7 +51,7 @@ struct TreeNode *addNode(struct TreeNode *root, const int val) {
     newNode->val = val;
     newNode->left = newNode->right = NULL;
 
-    /* add new node in empty bst*/
+    /* add a new node in empty bst*/
     if (root == NULL) root = newNode;
     else {
         struct TreeNode *p = root;
