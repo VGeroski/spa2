@@ -96,6 +96,39 @@ struct cvor *pronadji(struct cvor *p, int kljuc, struct cvor **y) {
     return NULL;
 }
 
+/* funkcija za brisanje cvora iz binarnog stabla za pretrazivanje */
+struct cvor *obrisi(struct cvor *p, int kljuc) {
+    struct cvor *y = NULL; /* roditelj cvora kojeg brisemo */
+    struct cvor *x = pronadji(p, kljuc, &y); /* cvor koji treba obrisati */
+    if (x == NULL) return p;
+
+    struct cvor *q = NULL; /* potomak cvora kojeg brisemo */
+
+    /* slucaj ukliko cvor nema potomke */
+    if (x->levi == NULL && x->desni == NULL) q = NULL;
+
+    /*slucaj ukoliko cvor ima jednog potomka */
+    if (x->desni != NULL && x->levi == NULL) q = x->desni;
+    if (x->desni == NULL && x->levi != NULL) q = x->levi;
+
+    /* slucaj ukoliko cvor ima oba potomka */
+    if (x->desni != NULL && x->levi != NULL) {
+        q = x->levi;
+        struct cvor *pom = q;
+        while (pom->desni != NULL) pom = pom->desni;
+        pom->desni = x->desni;
+    }
+
+    if (y != NULL) {
+        if (y->levi == x) y->levi = q;
+        else y->desni = q;
+    } else
+        p = q;
+
+    free(x);
+    return p;
+}
+
 int main(void) {
     struct cvor *koren = NULL;
     int n, x;
@@ -116,4 +149,7 @@ int main(void) {
     stampaj_inorder(koren);
 
     zameni(koren);
+    obrisi(koren, 10);
+    printf("\n");
+    stampaj_inorder(koren);
 }
