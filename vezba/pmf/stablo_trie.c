@@ -62,12 +62,12 @@ int recPostoji(Drvo *koren, char *rec) {
     return 1;
 }
 
-void oslobodiMemoriju(Drvo *koren) {
+void oslobodi_memoriju(Drvo *koren) {
     if (koren == NULL) return;
 
     for (int i = 0; i < ALPHABET; i++) {
         if (koren->sledeci[i] != NULL) {
-            oslobodiMemoriju(koren->sledeci[i]);
+            oslobodi_memoriju(koren->sledeci[i]);
         }
     }
 
@@ -94,7 +94,7 @@ int main() {
     else
         printf("Rec ne postoji\n");
 
-    oslobodiMemoriju(koren);
+    oslobodi_memoriju(koren);
 
     return 0;
 }

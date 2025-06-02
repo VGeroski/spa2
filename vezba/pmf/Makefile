@@ -1,7 +1,7 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -g
 TARGET = stablo
-SRC = stablo_trie.c
+SRC = balansirana_stabla.c
 
 all: $(TARGET)
 

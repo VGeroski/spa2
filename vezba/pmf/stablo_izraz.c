@@ -159,11 +159,11 @@ void ispis(struct drvo *p) {
     } else printf("%d", p->sadrzaj.broj);
 }
 
-void oslobodiMemoriju(Drvo *drvo) {
+void oslobodi_memoriju(Drvo *drvo) {
     if (drvo == NULL) return;
 
-    oslobodiMemoriju(drvo->levi);
-    oslobodiMemoriju(drvo->desni);
+    oslobodi_memoriju(drvo->levi);
+    oslobodi_memoriju(drvo->desni);
 
     free(drvo);
 }
@@ -173,6 +173,6 @@ int main() {
     ispis(izraz);
 
     printf("\nVrednost je %d\n", vrednost(izraz));
-    oslobodiMemoriju(izraz);
+    oslobodi_memoriju(izraz);
     return 0;
 }
